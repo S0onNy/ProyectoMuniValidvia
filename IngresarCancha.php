@@ -91,7 +91,7 @@
   
   <div class="col-sm-9">
   	<br>
-   	<form action="IngresarCancha.php" method="post" onSubmit="return validar()">
+   	<form action="IngresarCancha.php" method="post" onSubmit="return validar()" enctype="multipart/form-data">
 
     	<h4><small><b>INGRESAR NUEVA CANCHA</b></small></h4>
     	<hr>
@@ -107,9 +107,19 @@
         	</p><span class="msj" id="msj_direccion"></span>
       	</div>
       	<div class="col-sm-4" >
+        	<p>Fono contacto: &nbsp;&nbsp;
+          	<input type="number" name="telefono" id="telefono" required>
+        	</p><span class="msj" id="msj_telefono"></span>
+      	</div>
+      	<div class="col-sm-4" >
         	<p>Superficie: &nbsp;&nbsp;
           	<input type="text" name="superficie" id="superficie" required>
         	</p><span class="msj" id="msj_superficie"></span>
+      	</div>
+      	<div class="col-sm-4" >
+        	<p>Imagen: &nbsp;
+          	<input type="file" name="imagen" id="imagen">
+        	</p>
       	</div>
       	
       	
@@ -121,12 +131,22 @@
     </div>
     </form>
     
+    
+    
+    
     <?php 
 	if($_POST){
 	 $nombre=$_POST['nombre'];
 	 $direccion=$_POST['direccion'];
+	 $telefono=$_POST['telefono'];
 	 $superficie=$_POST['superficie'];
-	 insertarCancha($nombre,$direccion,$superficie);
+	 $nombreImg=$_FILES['imagen']['name'];
+	 $archivo=$_FILES['imagen']['tmp_name'];
+	 $ruta="imagenes";
+	 $ruta=$ruta."/".$nombreImg;
+	 move_uploaded_file($archivo,$ruta);	
+	 $ru=$ruta;
+	 insertarCancha($nombre,$direccion,$telefono,$superficie,$ru);
 	}
   
   

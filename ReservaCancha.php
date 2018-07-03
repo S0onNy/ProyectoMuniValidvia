@@ -3,6 +3,26 @@
 <!doctype html>
 <html>
 <head>
+	<script language="javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script language="javascript">
+	$(document).ready(function() {
+        $("#cancha").change(function () {
+			$("#cancha option:selected").each(function() {
+                codigoCancha = $(this).val();
+				$.post("getHorarios.php", {codigoCancha: codigoCancha},function(data){
+					$("#horarios").html(data);
+				});
+            });
+		
+		})
+    });
+	
+	
+	
+	
+	</script>
+	
+	
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,7 +31,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Carousel Template for Bootstrap</title>
+    <title>Reserva Cancha</title>
 
     <!-- Bootstrap CSS carpeta-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -44,20 +64,12 @@
           <ul class="navbar-nav ml-auto">
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <li class="nav-item active">
-              <a class="nav-link" href="PaginaPrincipalAdministracion.php">Inicio
+              <a class="nav-link" href="PaginaPrincipalAdministracion.php">Pagina Principal
                 <span class="sr-only">(current)</span>
               </a>
             </li>
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <li class="nav-item">
-              <a class="nav-link" href="AdministrarCancha.php">Administrar Cancha</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="Login.php">Administrar Reserva</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="Login.php">Cerrar Sesión</a>
-            </li>
+            
            
 
           </ul>
@@ -71,23 +83,58 @@
 
  <br><br><br><br><br><br>
 
-
-    <!-- Marketing messaging and featurettes
-    ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
-
-    <!-- /.container -->
-    <?php 
-     mostrarCanchas();
-     ?>
-     
-     
+     <div class="container-fluid">
+  <div class="row content">
+    <div class="sidenav" style="padding-left:10px">
+      <h3 style="color:#FFF">Administrar Cancha</h3>
+   
+  
+      
+    </div>
+  
+ <div class="col-sm-9">
+ <form action="guarda.php" method="post" id="combo" name="combo">
+  <h4><small>Reserva</small></h4>
+  <hr>
+  <div class="row">
+    <div class="col-sm-4" >
+    <div>
+      <p>Cancha &nbsp;&nbsp;&nbsp;&nbsp;
+        <select name="cancha" id="cancha">
+         <option value="0">Seleccionar</option>
+         <?php 
+           $con=conectarse();
+           $sql="select * from cancha";
+	       $rs=mysqli_query($con,$sql);
+		   while($fila =mysqli_fetch_row($rs)){       
+           echo "<option value='".$fila['codigoCancha']."'>".$fila[1]."</option>";           
+			}
+         ?>
+        </select></p>  
+     </div>
+    <div>
+         
+      <p>Hora &nbsp;&nbsp;&nbsp;&nbsp;
+        <select name="horarios" id="horarios">    
+          
+			}
+         ?>
+        </select></p>  
+    </div>
+    </div>
+    
+    </div>
+    
+    
+    </form>    
+  </div>
+    
      
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
+   
+  
     <script src="js/bootstrap.min.js"></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <script src="js/holder.min.js"></script>

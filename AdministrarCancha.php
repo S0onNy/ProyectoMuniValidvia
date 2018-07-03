@@ -16,7 +16,9 @@
     <!-- Bootstrap CSS carpeta-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     
+     
 
+  
  
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -93,14 +95,32 @@
  <form  method="post"  name="fmr1">
       <h4><small>BUSCAR/MODIFICAR</small></h4>
       <hr>
-      <p>Código Cancha</p>
+      <p>Ingrese código de cancha</p>
       
         <div class="form-group">
-          <input type="hiden" name="patente" id="patente" required>
-          <button type="submit" class="btn btn-success" name="modificar"  id="modificar">Modificar</button>
+          <input type="hiden" name="codigo" id="codigo" required>
+          <button type="submit" class="btn btn-success" name="modificar" id="modificar">Modificar</button>
           <button type="submit" class="btn btn-success" name="eliminar"  id="eliminar">Eliminar</button>
-          <span class="msj" id="msj_patente"></span>
-          </form>
+          <span class="msj" id="msj_codigo"></span><?php
+			$variable = $_POST['codigo'];
+			if(isset($_POST['modificar'])){
+				
+				verificarCancha($variable);
+			}
+			
+			if(isset($_POST['eliminar'])){
+				eliminarCancha($variable);
+			}
+				
+			
+			
+		 
+		 ?>
+         
+         
+          
+          
+           </form>
           
           
             
@@ -110,6 +130,9 @@
         </div>
     
 <h2>Listado Completo</h2>
+<?php 
+listadoCancha();
+?>
 </div>  
      </div>
      

@@ -680,5 +680,55 @@ function eliminarCancha($codigoEnviar){
 	}
 	
 }
+function enviarFormulario($canchaS,$horariosS,$horarios2S,$diaS){
+	$con=conectarse();
+	$estado="";
+	$dia="";
+	$dia2="";
+	echo $canchaS;
+	$sql="select * from estado where codigoCancha='"."$canchaS"."' and hora ='"."$horariosS"."'";
+	$rs=mysqli_query($con,$sql);
+		if((mysqli_num_rows($rs)>0))
+		{
+			while($fila =mysqli_fetch_assoc($rs))
+			{
+			$dia= $fila['"."$diaS"."'];
+			}
+			if($dia = 'Ocupado'){
+			echo "<script>alert('Ocupado');</script>";
+			}
+			else{
+				$sql2="select * from estado where codigoCancha='"."$canchaS"."' and hora ='"."$horarios2S"."'";
+				$rs2=mysqli_query($con2,$sql2);
+				if((mysqli_num_rows($rs2)>0)){
+					while($fila2 =mysqli_fetch_assoc($rs2))
+					{
+					$dia2= $fila2['"."$diaS"."'];
+					}
+				if($dia2 = 'Ocupado'){
+				echo "<script>alert('Ocupado');</script>";
+				}
+				else{
+				$sql3="update estado set '"."$diaS"."' ='Ocupado', where codigoCancha = '"."$canchaS"."' AND hora='"."$$horariosS"."'";
+				if(mysqli_query($con3,$sql3))
+					{	
+					$sql4="update estado set '"."$diaS"."' ='Ocupado', where codigoCancha = '"."$canchaS"."' AND hora='"."$$horarios2S"."'";
+				    if(mysqli_query($con3,$sql3))
+					{	
+					echo "<script>alert('reserva realizada');</script>";
+					}
+					
+				}
+
+				
+				}
+			}
+				
+				
+			}
+		}
+	}
+
+
 
 ?>

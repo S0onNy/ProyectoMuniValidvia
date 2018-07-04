@@ -1,4 +1,10 @@
-<?php include("phpConexionConsulta.php"); ?>
+<?php require("conexion.php"); 
+
+$query= "select codigoCancha,nombre from cancha order by nombre ASC";
+$resultado = $mysqli ->query($query);
+?>
+
+<?php include("phpConexionConsulta.php")?>
 
 <!doctype html>
 <html>
@@ -9,14 +15,25 @@
         $("#cancha").change(function () {
 			$("#cancha option:selected").each(function() {
                 codigoCancha = $(this).val();
-				$.post("getHorarios.php", {codigoCancha: codigoCancha},function(data){
+				$.post("getHorarios.php", {codigoCancha:codigoCancha},function(data){
 					$("#horarios").html(data);
+					$("#horarios2").html(data);
 				});
             });
 		
 		})
     });
-	
+	$(document).ready(function() {
+        $("#horaios,#horarios2").change(function () {
+			$("#cancha option:selected").each(function() {
+                codigoCancha = $(this).val();
+				$.post("getDia.php", {codigoCancha:codigoCancha},function(data){
+					$("#dia").html(data);
+				});
+            });
+		
+		})
+    });
 	
 	
 	
@@ -93,39 +110,64 @@
     </div>
   
  <div class="col-sm-9">
- <form action="guarda.php" method="post" id="combo" name="combo">
+ <form action="ReservaCancha.php" method="post" id="combo" name="combo">
   <h4><small>Reserva</small></h4>
   <hr>
+  
   <div class="row">
-    <div class="col-sm-4" >
+    <div class="col-sm-12" >
     <div>
-      <p>Cancha &nbsp;&nbsp;&nbsp;&nbsp;
+      <p>Seleccione cancha &nbsp;&nbsp;&nbsp;&nbsp;
         <select name="cancha" id="cancha">
          <option value="0">Seleccionar</option>
          <?php 
-           $con=conectarse();
-           $sql="select * from cancha";
-	       $rs=mysqli_query($con,$sql);
-		   while($fila =mysqli_fetch_row($rs)){       
-           echo "<option value='".$fila['codigoCancha']."'>".$fila[1]."</option>";           
-			}
-         ?>
-        </select></p>  
+           
+		   while($row = $resultado->fetch_assoc()){ 
+		   
+         ?>      
+           <option value="<?php echo $row['codigoCancha']; ?>"><?php echo $row['nombre']; ?>
+          </option>    
+		 <?php } ?>	
+        </select> 
+        </p>    
      </div>
+     
     <div>
-         
-      <p>Hora &nbsp;&nbsp;&nbsp;&nbsp;
+   <div class="col-sm-12" >
+      <p>Seleccione hora de arriendo &nbsp;&nbsp;&nbsp;&nbsp;
         <select name="horarios" id="horarios">    
           
-			}
-         ?>
-        </select></p>  
+			
+      
+        </select> 
+        
+     Hasta
+    <select name="horarios2" id="horarios2">    
+      
+        
+   
+    </select>
     </div>
+    <div class="col-sm-12" >
+    Seleccione Dia del arriendo;
+        <select name="dia" id="dia">          
+      </select> 
     </div>
     
     </div>
-    
-    
+    <button type="submit" class="btn btn-success" name="enviar" id="enviar">Ingresar</button>
+    </div>
+    <?php
+    if(isset($_POST['enviar'])){
+		
+		$canchaS=$_POST['cancha'];
+		$horariosS=$_POST['horarios'];
+		$horarios2S=$_POST['horarios2'];
+		$diaS=$_POST['dia'];
+		enviarFormulario($canchaS,$horariosS,$horarios2S,$diaS);
+		echo $horariosS;
+	}
+	?>
     </form>    
   </div>
     

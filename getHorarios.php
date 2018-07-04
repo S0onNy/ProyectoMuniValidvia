@@ -1,17 +1,24 @@
 <?php
-require("phpConexionConsulta.php");
-$con=conectarse();
+require("conexion.php");
+
 $codigoCancha = $_POST['codigoCancha'];
-$sql = "select * from estado  where codigoCancha = '$codigoCancha'";
-$rs2=mysqli_query($con,$sql);
+
+$query2 = "select codigoCancha,hora from estado where codigoCancha = '$codigoCancha'";
+
+$resultado2 = $mysqli ->query($query2);
+
+
+
 $html= "<option value='0'>Seleccionar</option>";
-while($fila =mysqli_fetch_row($rs2) )
-{
-	$html= "<option value='".$fila['codigoCancha']."'>".$fila['hora']."</option>";
 
-}
+while($row = $resultado2->fetch_assoc()){ 
 
+	$html .= "<option value='".$row['codigoCancha']."'>".$row['hora']."</option>";
+        
+  }
 echo $html;
+
+
 
 
 ?>

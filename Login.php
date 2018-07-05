@@ -1,4 +1,7 @@
-<?php include("phpConexionConsulta.php"); ?>
+<?php include("phpConexionConsulta.php");
+session_start();
+
+?>
 <!doctype html>
 <html>
 

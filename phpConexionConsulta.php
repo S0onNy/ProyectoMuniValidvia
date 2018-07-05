@@ -18,7 +18,7 @@ function conectarse(){
 function formulario($nombres,$rut,$ap,$am,$telefono,$mesaje,$correo,$as){
 	$mail= "noreplyformulariosvald@gmail.com";
 	$mesaje ="Nombre: " . $nombres . "\nApellidos: " . $ap ."" .$am. "\nTelefono: ".$telefono."\nRut:".$rut."\n" .$mesaje ;
-	$asunto= $as. "recibido";
+	$asunto= $as. " recibida";
 	$mesaje2= "Estimado ".$nombres."\nMuchas gracias por contactarse con nosotros, su formulario sera constestado a la brevedad ";
 	if(mail($mail,$as,$mesaje))
 	{
@@ -27,7 +27,7 @@ function formulario($nombres,$rut,$ap,$am,$telefono,$mesaje,$correo,$as){
 		
     }
 	else{
-    	echo "<script>alert('No se pudo enviar el mail, por favor verifique su configuracion de correo SMTP saliente.');</script>";
+    	echo "<script>alert('No se pudo enviar el mail, por favor verifique su configuración de correo SMTP saliente.');</script>";
     }
 
 }
@@ -37,10 +37,11 @@ function validarIngreso($usuario,$pass){
 	$sql="select * from usuarios where administrador = '"."$usuario"."' and pass ='"."$pass"."'";
 	$rs=mysqli_query($con,$sql);
 	if(mysqli_num_rows($rs)>0){
+		$_SESSION['user'] = $usuario;
 		header('Location: PaginaPrincipalAdministracion.php');	
 	}
 	else{
-		 header('Location: Login.php');
+		 echo "<script>alert('Nombre de usuario o contraseña inválidos');</script>";
 	}
 }
 
@@ -69,8 +70,8 @@ function mostrarCanchas(){
 		$con2=conectarse();
 		$sql2="select estado.hora ,estado.lunes ,estado.martes ,estado.miercoles ,estado.jueves ,estado.viernes ,estado.sabado ,estado.domingo,cancha.imagen from estado inner join cancha ON estado.codigoCancha=cancha.codigoCancha where cancha.codigoCancha='"."$cCancha"."'";
 		$rs2=mysqli_query($con2,$sql2);
-		echo "<div class='table-responsive'> " ;
-		echo"<table class='table table-sm table-dark' border=1";
+		echo "<div class='table-responsive' style='padding-left:100px'> " ;
+		echo"<table class='table table-condensed' ";
             echo"<tr>";
                 echo"<th>Hora</th>";
                 echo"<th>Lunes</th>";
@@ -94,8 +95,10 @@ function mostrarCanchas(){
               echo"  <td>".$fila2["sabado"]."</td>";
               echo"  <td>".$fila2["domingo"]."</td>";
            echo" </tr>";
-		    
+		   
+		   
 			$img=$fila["imagen"];
+			
 		}
        echo" </table>";
 		echo "</div>"; 
@@ -106,11 +109,11 @@ function mostrarCanchas(){
 		echo "  </div>";
          
         
-		echo "	<div class='col-md-5'>";
-		echo " <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> <img class='featurette-image img-responsive center-block' data-src='holder.js/500x500/auto' width='500' height='400' alt='500x500' src='".$img."'>";
+		echo "	<div class='col-md-5' style='padding-left:100px'>";
+		echo " <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> <img class='img-thumbnail' center-block' data-src='holder.js/500x500/auto' width='500' height='400' alt='500x500' src='".$img."'>";
 		echo " 	</div>";
 		echo " 	</div>";
-		
+		 
 		
 
 		
@@ -171,6 +174,8 @@ function insertarCancha($nombre,$direccion,$telefono,$superficie,$ru){
 				}
 				
 				echo "<script>alert('Inserccion exitosa, codigo de cancha:  "."$val"." ' );</script>";
+				echo "<script language=Javascript> location.href='AdministrarCancha.php'; </script>"; 
+
 			}
 			else
 			{
@@ -640,7 +645,7 @@ function modificarCancha($codigoCancha,$nombre,$direccion,$telefono,$superficie,
 		
 
 		echo "<script>alert('Modificacion Exitosa' );</script>";
-				
+		echo "<script language=Javascript> location.href='AdministrarCancha.php'; </script>"; 		
 				
 				
 					
@@ -659,7 +664,9 @@ function modificarCancha($codigoCancha,$nombre,$direccion,$telefono,$superficie,
 
 function eliminarCancha($codigoEnviar){
 	$con=conectarse();
-	
+	$sql7="select * from cancha where codigoCancha = '"."$codigoEnviar"."'";
+	$rs7=mysqli_query($con,$sql7);
+	if(mysqli_num_rows($rs7)>0){
 	$sql="delete from estado where codigoCancha='"."$codigoEnviar"."'";
 	if(mysqli_query($con,$sql))
 	{
@@ -680,8 +687,226 @@ function eliminarCancha($codigoEnviar){
 	else{
 		echo "<script>alert('Error');</script>";
 	}
+	}
+	else{
+		echo "<script>alert('Cancha no existe');</script>";
+	}
 	
 }
+
+function verificarReserva($codigoEnviar){
+	$con=conectarse();
+	$sql="select * from arriendo where codigo= '"."$codigoEnviar"."'";
+	$rs=mysqli_query($con,$sql);
+	if(mysqli_num_rows($rs)>0){
+		glo($codigoEnviar);
+	    header('Location: ModificarReserva.php');
+	}
+	else{
+		
+		
+		echo "<script>alert('Reserva no existe');</script>";
+		
+	}
+}
+
+function insertarReserva($cancha,$fecha,$comienzo,$termino,$nombre,$paterno,$materno,$rut,$telefono,$correo){
+	
+	if($comienzo<$termino)
+	{
+		$con=conectarse();
+	$val =mt_rand(100000,999999);
+	$sql="select * from arriendo where Codigo = '"."$val"."' ";
+	$rs=mysqli_query($con,$sql);
+	if(!(mysqli_num_rows($rs)>0))
+	{
+		
+		$con4=conectarse();
+		$sql4="insert into arriendo values ('"."$val"."','"."$fecha"."','"."$comienzo"."','"."$termino"."','"."$rut"."','"."$cancha"."')";
+		if(mysqli_query($con4,$sql4))
+		{	
+				$sql2="select * from cliente where rut = '"."$rut"."' ";
+				$rs2=mysqli_query($con,$sql2);
+				if(!(mysqli_num_rows($rs2)>0))
+				{
+					$con3=conectarse();
+					$sql3="insert into cliente values ('"."$rut"."','"."$nombre"."','"."$paterno"."','"."$materno"."',"."$telefono".",'"."$correo"."')";
+					if(mysqli_query($con3,$sql3))
+					{
+						                   
+				echo "<script>alert('Inserccion exitosa, codigo de reserva:  "."$val"." ' );</script>";
+				echo "<script language=Javascript> location.href='AdministrarReserva.php'; </script>"; 
+					}
+					else{
+						echo "<script>alert('Error inesperado, vuelva a interntarlo');</script>";
+					}
+				}
+				else{
+				$con3=conectarse();
+			$sql3="update cliente set 	nombres='"."$nombre"."',apellidoP='"."$paterno"."',apellidoM='"."$materno"."',TelefonoOcel="."$telefono".",correo='"."$correo"."' where rut = '"."$rut"."'";
+		if(mysqli_query($con3,$sql3))
+	{
+		
+		echo "<script>alert('Inserccion exitosa, codigo de reserva:  "."$val"." ' );</script>";
+				echo "<script language=Javascript> location.href='AdministrarReserva.php'; </script>"; 
+	}
+		else{
+			echo "<script>alert('Error inesperado');</script>";
+		}
+				                   
+				
+				}
+
+		
+				
+		}
+			else
+			{
+					echo "<script>alert('Error');</script>";
+			}
+					
+				
+					
+	}
+	else{
+		echo "<script>alert('Error inesperado, vuelva a intentarlo');</script>";
+	}
+				
+	 
+	}
+	else{
+		echo "<script>alert('Hora de comienzo debe ser menor que la hora de termino, vuelva a intentarlo');</script>";
+	}
+	
+	
+
+
+	
+	
+	
+}
+
+
+function eliminarReserva($codigoEnviar){
+	$con=conectarse();
+	$sql7="select * from arriendo where codigo = '"."$codigoEnviar"."'";
+	$rs7=mysqli_query($con,$sql7);
+	if(mysqli_num_rows($rs7)>0){
+	$sql="delete from arriendo where codigo='"."$codigoEnviar"."'";
+	if(mysqli_query($con,$sql))
+	{
+		
+			echo "<script>alert('Registro eliminado');</script>";
+				
+	}
+	else{
+		echo "<script>alert('Error');</script>";
+	}
+	}
+	else{
+		echo "<script>alert('Reserva no existe');</script>";
+	}
+	
+}
+
+function listadoReserva(){
+	$con=conectarse();
+	$sql="select * from arriendo";
+	$rs=mysqli_query($con,$sql);
+	if(mysqli_num_rows($rs)>0)
+	{
+		echo "<div class='table-responsive'> " ;
+		echo"<table class='table' border=1";
+            echo"<tr>";
+                echo"<th>Código</th>";
+                echo"<th>Fecha</th>";
+                echo"<th>Hora comienzo</th>";
+                echo"<th>Hora termino</th>";
+				echo"<th>Rut cliente</th>";
+				echo"<th>Codigo cancha</th>";
+           echo" </tr>";
+		while($fila =mysqli_fetch_assoc($rs))
+		{
+           echo" <tr>";
+            echo"    <td>".$fila["Codigo"]."</td>";
+             echo"   <td>".$fila["FechaSolicitud"]."</td>";
+              echo"  <td>".$fila["HoraComienzo"]."</td>";
+              echo"  <td>".$fila["HoraTermino"]."</td>";
+			echo"  <td>".$fila["rut"]."</td>";
+			echo"  <td>".$fila["codigoCancha"]."</td>";
+              echo" </tr>";
+		}
+       echo" </table>";
+		echo "</div>";  
+	}
+		else
+	{
+		echo "<script>alert('Error inesperado');</script>";
+	}
+	
+	
+}
+
+function modificarReserva($codigo,$cancha,$fecha,$comienzo,$termino,$nombre,$paterno,$materno,$rut,$telefono,$correo)
+{
+	if($comienzo<$termino)
+	{
+	
+	$con2=conectarse();
+	$sql2="update arriendo set FechaSolicitud='"."$fecha"."', HoraComienzo='"."$comienzo"."', HoraTermino='"."$termino"."', rut='"."$rut"."', codigoCancha='"."$cancha"."' where Codigo='"."$codigo"."'";
+	if(mysqli_query($con2,$sql2))
+	{
+		$con=conectarse();
+	$sql="select * from cliente where rut = '"."$rut"."' ";
+	$rs=mysqli_query($con,$sql);
+	if(!(mysqli_num_rows($rs)>0))
+	{
+		$con4=conectarse();
+		$sql4="insert into cliente values ('"."$rut"."','"."$nombre"."','"."$paterno"."','"."$materno"."',"."$telefono".",'"."$correo"."')";
+		if(mysqli_query($con4,$sql4))
+	{
+		echo "<script>alert('Reserva Modificada');</script>";
+		echo "<script language=Javascript> location.href='AdministrarReserva.php'; </script>"; 
+	}
+		else{
+			echo "<script>alert('Error inesperado');</script>";
+			
+		}
+		
+		
+		
+		
+		}
+			else{
+		
+		$con3=conectarse();
+		$sql3="update cliente set nombres='"."$nombre"."',apellidoP='"."$paterno"."',apellidoM='"."$materno"."',TelefonoOcel="."$telefono".",correo='"."$correo"."' where rut = '"."$rut"."'";
+		if(mysqli_query($con3,$sql3))
+	{
+		
+		echo "<script>alert('Reserva Modificada');</script>";
+		echo "<script language=Javascript> location.href='AdministrarReserva.php'; </script>"; 
+	}
+		else{
+			echo "<script>alert('Error inesperado');</script>";
+		}
+	}
+	}
+	else
+	{
+		echo "<script>alert('Error inesperado');</script>";
+	}
+		
+	
+	}
+	
+	else{
+		echo "<script>alert('Hora de comienzo debe ser menor que la hora de termino, vuelva a intentarlo');</script>";
+	}
+	
+	
+}
+
 
 
 

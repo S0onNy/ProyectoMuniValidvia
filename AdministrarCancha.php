@@ -1,4 +1,12 @@
-<?php include("phpConexionConsulta.php"); ?>
+<?php include("phpConexionConsulta.php"); 
+session_start();
+ $variablesesion = $_SESSION['user'];
+ if ($variablesesion == null ||  $variablesesion = ''){
+   echo "<script>alert('Usted no tiene autorización');</script>";
+   header("Location: PaginaPrincipal.php");
+   
+ }
+?>
 
 <!doctype html>
 <html>
@@ -55,10 +63,10 @@
               <a class="nav-link" href="AdministrarCancha.php">Administrar Cancha</a>
              </li>
             <li class="nav-item">
-              <a class="nav-link" href="Login.php">Administrar Reserva</a>
+              <a class="nav-link" href="AdministrarReserva.php">Administrar Reserva</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="Login.php">Cerrar Sesión</a>
+              <a class="nav-link" href="cerrarSesion.php">Cerrar Sesión</a>
             </li>
            
 

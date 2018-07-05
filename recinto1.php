@@ -2,101 +2,124 @@
 <!doctype html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimun-scale=1.0">
-﻿
-<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<style>
-/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+	
+	
+	
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
 
+    <title>Reserva Cancha</title>
 
+    <!-- Bootstrap CSS carpeta-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    
 
+ 
 
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
-
-.row.content {
-	height: 550px;
-}
-/* Set gray background color and 100% height */
-.sidenav {
-	background-color: #333333;
-	height: 100%;
-	width: 280px;
-	margin-left: 15px;
-}
-        
-    /* On small screens, set height to 'auto' for the grid */
-    @media screen and (max-width: 767px) {
-.row.content {
-	height: auto;
-}
-}
-</style>
-<title>Untitled Document</title>
-</head>
+    <!-- Custom styles for this template -->
+    <link href="css/carousel.css" rel="stylesheet">
+  </head>
 
 <body>
-<div class="container-fluid">
+    <div class="navbar-wrapper">
+      <div class="container">
+
+          <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          
+        <img src="imagenes/backlogo.jpg" alt="Italian Trulli">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="nav-item active">
+              <a class="nav-link" href="PaginaPrincipal.php">Pagina Principal
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            
+           
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+      </div>
+    </div>
+
+
+ <br><br><br><br><br><br>
+
+     <div class="container-fluid">
+  <div class="row content">
+    <div class="sidenav" style="padding-left:10px">
+      <h3 style="color:#FFF">Administrar Cancha</h3>
+   
+  
+      
+    </div>
+  
+ <div class="container-fluid">
 <div class="wrap">
 <form action="recinto1.php".php" method="post" >
   <h4><small>Rellene Formulario</small></h4>
-  <hr>
-  
-  <div class="row">
-  
-    <div class="col-sm-6" >
-      <p>Nombre 
-    </div>
+   <hr>
     
-    <div class="col-sm-6" >
+    <div class="col-sm-12" >
+      <p>Nombre &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <input type="text" name="nombres" id="nombres" required>
-      <span class="msj" id="msj_nombre"></span> 
+      </p>
     </div>
     
-    <div class="col-sm-6" >
-     Apellido Paterno
-    </div>
-    
-    <div class="col-sm-6" >
-     <span class="msj" id="msj_nombre"></span>
+    <div class="col-sm-12" >
+    <p>
+      Apellido Paterno             &nbsp;
      <input type="text" name="apellidoP" id="apellidoP" required>
+         </p>
     </div>
     
-    <div class="col-sm-6" >
-    Apeliido Materno
-    </div>
-    
-    <div class="col-sm-6" >
-    
+    <div class="col-sm-12" >
+     <p>
+    Apeliido Materno&nbsp;
     <input type="text" name="apellidoM" id="apellidoM" required>
+        </p>
     </div>
     
-     <div class="col-sm-6" >
-      Rut 
-     </div>
-     
-     <div class="col-sm-6" >
-      <input type="text" name="rut" id="rut" required>
-     
+     <div class="col-sm-12" >
+      <p>
+      Rut       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <input type="text" name="rut" id="rut" required>
+         </p>
      </div>
  
-     <div class="col-sm-6" >
-     telefono o celular 
-     </div>
-     
-     <div class="col-sm-6" >
+     <div class="col-sm-12" >
+      <p>
+     telefono o celular &nbsp;
      <input type="number" name="tel" id="tel" required>
+         </p>
      </div>
      
-     <div class="col-sm-6" >
+     <div class="col-sm-12" >
+      <p>
      Correo Electronico 
-     </div>
-    
-     <div class="col-sm-6" >
      <input type="email" name="correo" id="correo" required>
-     </div>
+         </p>
+     </div>    
      
      <div class="col-sm-12" >
      <select name="asunto">
@@ -138,5 +161,18 @@ if($_POST)
  </form>
  </div>
 </div>
-</body>
+   
+     
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+   
+  
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="js/holder.min.js"></script>
+    
+  
+
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;"><defs><style type="text/css"></style></defs><text x="0" y="25" style="font-weight:bold;font-size:25pt;font-family:Arial, Helvetica, Open Sans, sans-serif">500x500</text></svg></body>
 </html>

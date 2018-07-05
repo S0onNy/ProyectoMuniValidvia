@@ -11,10 +11,11 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Carousel Template for Bootstrap</title>
+    <title>MunicipalidadCanchas</title>
 
     <!-- Bootstrap CSS carpeta-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+   
     
 
  
@@ -43,7 +44,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item ">
-              <a class="nav-link" href="#">Inicio
+              <a class="nav-link" href="PaginaPrincipal.php">Inicio
                 <span class="sr-only">(current)</span>
               </a>
             </li>
@@ -52,7 +53,7 @@
               <a class="nav-link" href="Login.php">Administración</a>
             </li>
             <form action='Opciones.php' method='post' id='sel' name='sel'>
-            <button type='submit'class='btn btn-primary btn-block' name='op' id='op'>Reserve Ahora !</button>  ";
+            <button type='submit'class='btn btn-primary btn-block' name='op' id='op'>Reserve Ahora !</button>  
             </li>
             <?php 
 			  if (isset($_POST['op'])){
@@ -63,7 +64,7 @@
         
 
           </ul>
-        </div>
+			</div>
       </div>
     </nav>
 
@@ -83,6 +84,7 @@
      <div class="container-fluid">
     <?php 
      mostrarCanchas();
+	 
      ?>
      </div>
      

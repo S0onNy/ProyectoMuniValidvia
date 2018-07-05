@@ -1,4 +1,12 @@
-<?php include("phpConexionConsulta.php"); ?>
+<?php include("phpConexionConsulta.php");
+session_start();
+ $variablesesion = $_SESSION['user'];
+ if ($variablesesion == null ||  $variablesesion = ''){
+   echo "<script>alert('Usted no tiene autorización');</script>";
+   header("Location: PaginaPrincipal.php");
+   
+ }
+?>
 <?php
 $con=conectarse();
 $sql="select * from variable";
@@ -79,10 +87,10 @@ $rs=mysqli_query($con,$sql);
               <a class="nav-link" href="AdministrarCancha.php">Administrar Cancha</a>
              </li>
             <li class="nav-item">
-              <a class="nav-link" href="Login.php">Administrar Reserva</a>
+              <a class="nav-link" href="AdministrarReserva.php">Administrar Reserva</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="Login.php">Cerrar Sesión</a>
+              <a class="nav-link" href="cerrarSesion.php">Cerrar Sesión</a>
             </li>
            
 
@@ -118,7 +126,7 @@ $rs=mysqli_query($con,$sql);
   <div class="col-sm-9">
   	<br>
    	<form action="ModificarCancha.php" method="post" onSubmit="return validar()" enctype="multipart/form-data">
-s
+
     	<h4><small><b>MODIFICAR CANCHA</b></small></h4>
     	<hr>
     	<div class="row">

@@ -57,13 +57,14 @@ function mostrarCanchas(){
 		$cCancha=$fila["codigoCancha"];	
         echo " <hr class='featurette-divider'>";
 
-		echo "  <div class='row featurette' align='center'>";
+		echo "  <div class='row featurette' align='left'>";
 		echo "  <div class='col-md-7'>";
+		
         echo "  <h2 class='featurette-heading'>".$fila["nombre"]."</h2>";
-		echo "  <p class='lead'><b>Código de cancha: </b>".$fila["codigoCancha"]."<br>";
-		echo "  <p class='lead'><b>Dirección: </b>".$fila["direccion"]."<br>";
-		echo "  <p class='lead'><b>Fono contacto: </b>".$fila["telefono"]."<br>";
-		echo "  <p class='lead'><b>Superficie: </b>".$fila["superficie"]."<br><br>";
+		echo "  <p class='lead'><b>Dirección: </b>".$fila["direccion"]."</p>";
+		echo "  <p class='lead'><b>Fono contacto: </b>".$fila["telefono"]."</p>";
+		echo "  <p class='lead'><b>Superficie: </b>".$fila["superficie"]."</p>";
+		
 		echo "  <b>Horario:</b><br>";
 		$con2=conectarse();
 		$sql2="select estado.hora ,estado.lunes ,estado.martes ,estado.miercoles ,estado.jueves ,estado.viernes ,estado.sabado ,estado.domingo,cancha.imagen from estado inner join cancha ON estado.codigoCancha=cancha.codigoCancha where cancha.codigoCancha='"."$cCancha"."'";
@@ -93,6 +94,7 @@ function mostrarCanchas(){
               echo"  <td>".$fila2["sabado"]."</td>";
               echo"  <td>".$fila2["domingo"]."</td>";
            echo" </tr>";
+		    
 			$img=$fila["imagen"];
 		}
        echo" </table>";
@@ -100,12 +102,12 @@ function mostrarCanchas(){
 		echo" <br>";
 	     echo" <br>";
 		
-		echo "  <a href='recinto1.php'>Arrendar</a>";
+		
 		echo "  </div>";
-        
+         
         
 		echo "	<div class='col-md-5'>";
-		echo " <br><br><br><br><br><br><br><br><br><br><br> <img class='featurette-image img-responsive center-block' data-src='holder.js/500x500/auto' width='500' height='400' alt='500x500' src='".$img."'>";
+		echo " <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> <img class='featurette-image img-responsive center-block' data-src='holder.js/500x500/auto' width='500' height='400' alt='500x500' src='".$img."'>";
 		echo " 	</div>";
 		echo " 	</div>";
 		
@@ -680,54 +682,6 @@ function eliminarCancha($codigoEnviar){
 	}
 	
 }
-function enviarFormulario($canchaS,$horariosS,$horarios2S,$diaS){
-	$con=conectarse();
-	$estado="";
-	$dia="";
-	$dia2="";
-	echo $canchaS;
-	$sql="select * from estado where codigoCancha='"."$canchaS"."' and hora ='"."$horariosS"."'";
-	$rs=mysqli_query($con,$sql);
-		if((mysqli_num_rows($rs)>0))
-		{
-			while($fila =mysqli_fetch_assoc($rs))
-			{
-			$dia= $fila['"."$diaS"."'];
-			}
-			if($dia = 'Ocupado'){
-			echo "<script>alert('Ocupado');</script>";
-			}
-			else{
-				$sql2="select * from estado where codigoCancha='"."$canchaS"."' and hora ='"."$horarios2S"."'";
-				$rs2=mysqli_query($con2,$sql2);
-				if((mysqli_num_rows($rs2)>0)){
-					while($fila2 =mysqli_fetch_assoc($rs2))
-					{
-					$dia2= $fila2['"."$diaS"."'];
-					}
-				if($dia2 = 'Ocupado'){
-				echo "<script>alert('Ocupado');</script>";
-				}
-				else{
-				$sql3="update estado set '"."$diaS"."' ='Ocupado', where codigoCancha = '"."$canchaS"."' AND hora='"."$$horariosS"."'";
-				if(mysqli_query($con3,$sql3))
-					{	
-					$sql4="update estado set '"."$diaS"."' ='Ocupado', where codigoCancha = '"."$canchaS"."' AND hora='"."$$horarios2S"."'";
-				    if(mysqli_query($con3,$sql3))
-					{	
-					echo "<script>alert('reserva realizada');</script>";
-					}
-					
-				}
-
-				
-				}
-			}
-				
-				
-			}
-		}
-	}
 
 
 

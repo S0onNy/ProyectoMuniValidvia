@@ -1,8 +1,8 @@
-<?php include("phpConexionConsulta.php"); ?>
-
 <!doctype html>
 <html>
 <head>
+	
+	
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,7 +11,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Carousel Template for Bootstrap</title>
+    <title>Reserva Cancha</title>
 
     <!-- Bootstrap CSS carpeta-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -42,25 +42,15 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item ">
-              <a class="nav-link" href="#">Inicio
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="nav-item active">
+              <a class="nav-link" href="PaginaPrincipal.php">Pagina Principal
                 <span class="sr-only">(current)</span>
               </a>
             </li>
-            <br>
-            <li class="nav-item">
-              <a class="nav-link" href="Login.php">Administración</a>
-            </li>
-            <form action='Opciones.php' method='post' id='sel' name='sel'>
-            <button type='submit'class='btn btn-primary btn-block' name='op' id='op'>Reserve Ahora !</button>  ";
-            </li>
-            <?php 
-			  if (isset($_POST['op'])){
-	          header('Location: ReservaCancha.php');
-		       }
-			
-			?>
-        
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            
+           
 
           </ul>
         </div>
@@ -71,27 +61,37 @@
     </div>
 
 
+ <br><br><br><br><br><br>
 
+ <div class="container">
+  <h2>Que desea hacer?</h2>
+  <form action="Opciones.php" method="post" id="sel" name="sel">
+  <button type="submit" class="btn btn-primary btn-block" name="reservar" id="reservar">Reservar Cancha</button>
+  <button type="submit" class="btn btn-default btn-block" name="formulario" id="formulario">Formulario</button>
+  
+  <?php 
+  
+  if (isset($_POST['reservar'])){
+	  header('Location: ReservaCancha.php');
+	  }
+  if (isset($_POST['formulario'])){
+	    header('Location: recinto1.php');
+	  }
+  
+  
+  ?>
+  </form>
 
+</div>
 
-    <!-- Marketing messaging and featurettes
-    ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
-
-    <!-- /.container -->
-    
-     <div class="container-fluid">
-    <?php 
-     mostrarCanchas();
-     ?>
-     </div>
-     
+ 
+   
      
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
+   
+  
     <script src="js/bootstrap.min.js"></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <script src="js/holder.min.js"></script>

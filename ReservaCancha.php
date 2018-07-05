@@ -4,7 +4,6 @@ $query= "select codigoCancha,nombre from cancha order by nombre ASC";
 $resultado = $mysqli ->query($query);
 ?>
 
-<?php include("phpConexionConsulta.php")?>
 
 <!doctype html>
 <html>
@@ -81,7 +80,7 @@ $resultado = $mysqli ->query($query);
           <ul class="navbar-nav ml-auto">
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <li class="nav-item active">
-              <a class="nav-link" href="PaginaPrincipalAdministracion.php">Pagina Principal
+              <a class="nav-link" href="PaginaPrincipal.php">Pagina Principal
                 <span class="sr-only">(current)</span>
               </a>
             </li>
@@ -110,7 +109,7 @@ $resultado = $mysqli ->query($query);
     </div>
   
  <div class="col-sm-9">
- <form action="ReservaCancha.php" method="post" id="combo" name="combo">
+ <form action="guardar.php" method="post" id="combo" name="combo">
   <h4><small>Reserva</small></h4>
   <hr>
   
@@ -154,23 +153,61 @@ $resultado = $mysqli ->query($query);
       </select> 
     </div>
     
+    
+   
+  <hr>
+    
+    <div class="col-sm-12" >
+      <p>Nombre &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <input type="text" name="nombres" id="nombres" required>
+      </p>
+    </div>
+    
+    <div class="col-sm-12" >
+    <p>
+      Apellido Paterno             &nbsp;
+     <input type="text" name="apellidoP" id="apellidoP" required>
+         </p>
+    </div>
+    
+    <div class="col-sm-12" >
+     <p>
+    Apeliido Materno&nbsp;
+    <input type="text" name="apellidoM" id="apellidoM" required>
+        </p>
+    </div>
+    
+     <div class="col-sm-12" >
+      <p>
+      Rut       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <input type="text" name="rut" id="rut" required>
+         </p>
+     </div>
+ 
+     <div class="col-sm-12" >
+      <p>
+     telefono o celular &nbsp;
+     <input type="number" name="tel" id="tel" required>
+         </p>
+     </div>
+     
+     <div class="col-sm-12" >
+      <p>
+     Correo Electronico 
+     <input type="email" name="correo" id="correo" required>
+         </p>
+     </div>    
+
+     
     </div>
     <button type="submit" class="btn btn-success" name="enviar" id="enviar">Ingresar</button>
     </div>
-    <?php
-    if(isset($_POST['enviar'])){
-		
-		$canchaS=$_POST['cancha'];
-		$horariosS=$_POST['horarios'];
-		$horarios2S=$_POST['horarios2'];
-		$diaS=$_POST['dia'];
-		enviarFormulario($canchaS,$horariosS,$horarios2S,$diaS);
-		echo $horariosS;
-	}
-	?>
+    
+    
+    
     </form>    
   </div>
-    
+   
      
     <!-- Bootstrap core JavaScript
     ================================================== -->

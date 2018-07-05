@@ -13,7 +13,7 @@ $html= "<option value='0'>Seleccionar</option>";
 
 while($row = $resultado2->fetch_assoc()){ 
 
-	$html .= "<option value='".$row['codigoCancha']."'>".$row['hora']."</option>";
+$html .= "<option value='".$row['hora']."'>".$row['hora']."</option>";
         
   }
 echo $html;

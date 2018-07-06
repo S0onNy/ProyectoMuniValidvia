@@ -55,6 +55,9 @@ if((mysqli_num_rows($resultado)>0)){
 					 while($row2 = $resultado2->fetch_assoc()){ 
 				     $nombreCancha=$row2['nombre'];
 						}
+						$codTemp =mt_rand(100000,999999);
+						$sql3 = "INSERT INTO temporal (codigoTemporal,codigoCancha,rut) values ('"."$codTemp"."','"."$cancha"."','"."$rut"."')";
+					    $mysqli->query($sql3);
 					
 				 	$mail= "noreplyformulariosvald@gmail.com";
 					$mesaje ="Nombre: " . $nombres . "\nApellidos: " . $ap ." " .$am. "\nTelefono: ".$telefono."\nRut:".$rut."\n";

@@ -84,7 +84,6 @@
      <div class="container-fluid">
     <?php 
      mostrarCanchas();
-	 
      ?>
      </div>
      
